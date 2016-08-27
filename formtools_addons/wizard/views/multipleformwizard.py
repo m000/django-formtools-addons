@@ -276,6 +276,16 @@ class MultipleFormWizardView(BaseWizardView):
 
         return self.render(forms)
 
+    def get_form_kwargs(self, step, form_name=None):
+        """
+        Return the keyword arguments to be used in the construction of
+        the forms used by each step.
+
+        Unless the method is overridden by the user, the `form_name`
+        argument will be ignored.
+        """
+        return super(MultipleFormWizardView, self).get_form_kwargs(step)
+
     def get_forms(self, step=None, data=None, files=None):
         """
         Constructs the form for a given `step`. If no `step` is defined, the

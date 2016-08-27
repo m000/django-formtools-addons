@@ -100,8 +100,8 @@ class TestWizard(MultipleFormWizardView):
         response = super(TestWizard, self).dispatch(request, *args, **kwargs)
         return response, self
 
-    def get_form_kwargs(self, step, *args, **kwargs):
-        kwargs = super(TestWizard, self).get_form_kwargs(step, *args, **kwargs)
+    def get_form_kwargs(self, step, form_name=None):
+        kwargs = super(TestWizard, self).get_form_kwargs(step, form_name)
         if step == 'kwargs_test':
             kwargs['test'] = True
         return kwargs

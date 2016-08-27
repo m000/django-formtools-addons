@@ -436,7 +436,8 @@ class WizardFormKwargsOverrideTests(TestCase):
         queryset = User.objects.get(pk=self.staff_user.pk)
 
         class InstanceOverrideWizard(CookieWizardView):
-            def get_form_kwargs(self, step):
+            # default value for form_name provides compatibility with formtools package during testing
+            def get_form_kwargs(self, step, form_name=None):
                 return {'instance': queryset}
 
         view = InstanceOverrideWizard.as_view([UserForm])
@@ -452,7 +453,8 @@ class WizardFormKwargsOverrideTests(TestCase):
         queryset = User.objects.filter(pk=self.staff_user.pk)
 
         class QuerySetOverrideWizard(CookieWizardView):
-            def get_form_kwargs(self, step):
+            # default value for form_name provides compatibility with formtools package during testing
+            def get_form_kwargs(self, step, form_name=None):
                 return {'queryset': queryset}
 
         view = QuerySetOverrideWizard.as_view([UserFormSet])
