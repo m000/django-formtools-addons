@@ -298,7 +298,7 @@ class MultipleFormWizardView(BaseWizardView):
             for form_name, form_class in form_struct.items():
                 initial = initial_dict.get(form_name, None) if initial_dict else None
                 instance = instance_dict.get(form_name, None) if instance_dict else None
-                kwargs = self.get_form_kwargs(step)
+                kwargs = self.get_form_kwargs(step, form_name)
                 kwargs.update({
                     'data': data,
                     'files': files,
@@ -320,7 +320,7 @@ class MultipleFormWizardView(BaseWizardView):
             # If the form is based on ModelForm or InlineFormSet,
             # add instance if available and not previously set.
             form_class = form_struct
-            kwargs = self.get_form_kwargs(step)
+            kwargs = self.get_form_kwargs(step, form_class)
             kwargs.update({
                 'data': data,
                 'files': files,
@@ -331,7 +331,7 @@ class MultipleFormWizardView(BaseWizardView):
             form_collection = [form_class(**kwargs)]
         elif issubclass(form_struct, (forms.Form, forms.BaseFormSet)):
             form_class = form_struct
-            kwargs = self.get_form_kwargs(step)
+            kwargs = self.get_form_kwargs(step, form_class)
             kwargs.update({
                 'data': data,
                 'files': files,
@@ -343,7 +343,7 @@ class MultipleFormWizardView(BaseWizardView):
             # If the form is based on ModelFormSet, add queryset if available
             # and not previous set.
             form_class = form_struct
-            kwargs = self.get_form_kwargs(step)
+            kwargs = self.get_form_kwargs(step, form_class)
             kwargs.update({
                 'data': data,
                 'files': files,
